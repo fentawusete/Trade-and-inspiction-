@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="am">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b4f45">
+<title>Gazo Merchant Inspection</title>
+<style>
+:root{--green:#0b4f45;--green2:#137565;--gold:#e5b84b;--bg:#f3f6f5;--ink:#182a27;--muted:#64736f;--line:#dce5e2;--white:#fff;--red:#a52b2b;--orange:#8a5a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Noto Sans Ethiopic",sans-serif;line-height:1.45}
+header{background:linear-gradient(120deg,var(--green),#167766);color:white;padding:22px 16px 18px}
+.head{max-width:1100px;margin:auto}.brand{font-size:12px;letter-spacing:1.5px;color:#d6eee8;font-weight:bold}.title{font-size:25px;font-weight:800;margin:5px 0}.subtitle{font-size:14px;color:#e0f2ee}
+.wrap{max-width:1100px;margin:18px auto;padding:0 12px 36px}.notice{background:#fff8df;border:1px solid #f0d98c;border-radius:12px;padding:11px 13px;font-size:13px;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.stat{background:white;border:1px solid var(--line);border-radius:12px;padding:13px}.stat b{display:block;font-size:24px;color:var(--green)}.stat span{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:10px}.tab{border:1px solid var(--line);background:white;color:var(--green);padding:10px 13px;border-radius:9px;font-weight:700;white-space:nowrap;cursor:pointer}.tab.active{background:var(--green);color:white;border-color:var(--green)}
+.panel{display:none;background:white;border:1px solid var(--line);border-radius:14px;padding:17px;margin-bottom:14px}.panel.active{display:block}.panel h2{font-size:19px;margin:0 0 13px;color:var(--green)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}label{font-size:13px;font-weight:700;color:#354a45}input,select,textarea{font:inherit;border:1px solid #cbd8d4;border-radius:8px;padding:10px;background:white;width:100%;min-width:0;color:var(--ink)}textarea{min-height:75px;resize:vertical}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.btn{border:0;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--green);color:white}.btn.secondary{background:#e9f2ef;color:var(--green);border:1px solid #c8ded7}.btn.danger{background:#fff0f0;color:var(--red);border:1px solid #edcaca}.btn.gold{background:#f6e7b6;color:#533b00}.small{font-size:12px;color:var(--muted)}.searchrow{display:flex;gap:8px;margin-bottom:12px}.searchrow input{flex:1}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f7f5;color:#31534b}td .btn{padding:6px 8px;font-size:12px}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:9px}
+.badge{display:inline-block;padding:3px 7px;border-radius:99px;background:#e6f4ed;color:#176346;font-size:11px;font-weight:700}.badge.warn{background:#fff2d6;color:#805500}.badge.red{background:#ffe8e8;color:#9a2828}
+.criteria{display:grid;grid-template-columns:1fr 1fr;gap:9px}.criterion{border:1px solid var(--line);border-radius:10px;padding:10px}.criterion .label{font-size:13px;font-weight:700;margin-bottom:7px}.radios{display:flex;gap:14px;font-size:13px}.radios label{font-weight:400;display:flex;align-items:center;gap:5px}.radios input{width:auto}
+.empty{padding:22px;text-align:center;color:var(--muted)}.sectionnote{font-size:12px;color:var(--muted);margin:0 0 12px}.hidden{display:none!important}.footer{text-align:center;color:var(--muted);font-size:12px;padding:10px}
+@media(max-width:650px){.stats{grid-template-columns:repeat(2,1fr)}.grid,.criteria{grid-template-columns:1fr}.title{font-size:21px}.panel{padding:13px}.searchrow{flex-direction:column}.stat{padding:11px}}
+@media print{header,.tabs,.notice,.no-print,.footer{display:none!important}body{background:white}.wrap{max-width:none;margin:0;padding:0}.panel{display:block!important;border:0;padding:0}.stat{border:1px solid #ccc}.stats{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="head">
+<div class="brand">GAZO WOREDA • TRADE & MARKET DEVELOPMENT</div>
+<div class="title">የጋዞ ወረዳ የነጋዴ ቁጥጥር</div>
+<div class="subtitle">Gazo Merchant Inspection • የነጋዴ መዝገብ፣ በር-ከበር ቁጥጥር እና ሪፖርት</div>
+</div></header>
+<main class="wrap">
+<div class="notice"><b>የመረጃ ጥበቃ፦</b> ይህ አፕ ባዶ ነው፤ ምንም የነጋዴ መረጃ አልተጫነበትም። የሚያስገቡት መረጃ በዚህ ስልክ/ኮምፒውተር ላይ በአሳሹ ውስጥ ይቀመጣል። አፑን በሌላ መሣሪያ ሲከፍቱ መረጃው በራሱ አይተላለፍም።</div>
+<div class="stats">
+<div class="stat"><b id="countMerchants">0</b><span>የተመዘገቡ ነጋዴዎች</span></div>
+<div class="stat"><b id="countInspections">0</b><span>የተደረጉ ቁጥጥሮች</span></div>
+<div class="stat"><b id="countRenewed">0</b><span>የታደሱ ፈቃዶች</span></div>
+<div class="stat"><b id="countIllegal">0</b><span>የተመዘገቡ ሕገወጥ ነጋዴዎች</span></div>
+</div>
+<nav class="tabs no-print">
+<button class="tab active" data-tab="merchants">የነጋዴ መዝገብ</button>
+<button class="tab" data-tab="inspection">ቁጥጥር መመዝገቢያ</button>
+<button class="tab" data-tab="illegal">ሕገወጥ ንግድ</button>
+<button class="tab" data-tab="reports">ሪፖርት</button>
+<button class="tab" data-tab="backup">ማትረፊያ / መረጃ ማስተላለፊያ</button>
+</nav>
+
+<section id="merchants" class="panel active">
+<h2>የነጋዴ መዝገብ</h2>
+<p class="sectionnote">አዲስ ነጋዴ ይመዝግቡ፤ በስም፣ TIN ወይም በፈቃድ ቁጥር ይፈልጉ።</p>
+<div class="grid">
+<input id="merchantId" type="hidden">
+<div class="field"><label for="mName">የፈቃድ ባለቤት ስም *</label><input id="mName" placeholder="ሙሉ ስም"></div>
+<div class="field"><label for="mTin">TIN ቁጥር</label><input id="mTin" inputmode="numeric" placeholder="TIN"></div>
+<div class="field"><label for="mLicense">የንግድ ፈቃድ ቁጥር</label><input id="mLicense" placeholder="የፈቃድ ቁጥር"></div>
+<div class="field"><label for="mSector">የንግድ ዘርፍ</label><input id="mSector" placeholder="ለምሳሌ፦ ሸቀጣ ሸቀጥ"></div>
+<div class="field"><label for="mAddress">አድራሻ</label><input id="mAddress" placeholder="ቀበሌ / አካባቢ"></div>
+<div class="field"><label for="mPhone">ስልክ ቁጥር</label><input id="mPhone" inputmode="tel" placeholder="ስልክ"></div>
+<div class="field"><label for="mCapital">ካፒታል</label><input id="mCapital" placeholder="ካፒታል"></div>
+<div class="field"><label for="mIssueDate">የፈቃድ የተሰጠበት ቀን</label><input id="mIssueDate" type="date"></div>
+<div class="field"><label for="mRenewal">የፈቃድ ሁኔታ</label><select id="mRenewal"><option value="ያልታደሰ">ያልታደሰ</option><option value="የታደሰ">የታደሰ</option><option value="አዲስ">አዲስ</option></select></div>
+<div class="field"><label for="mLegal">የሕጋዊነት ሁኔታ</label><select id="mLegal"><option value="ሕጋዊ">ሕጋዊ</option><option value="ሕገወጥ">ሕገወጥ</option><option value="ለማረጋገጥ">ለማረጋገጥ</option></select></div>
+<div class="field full"><label for="mNotes">ማስታወሻ</label><textarea id="mNotes" placeholder="ተጨማሪ መረጃ (ካለ)"></textarea></div>
+</div>
+<div class="buttons no-print"><button class="btn" id="saveMerchant">ነጋዴ አስቀምጥ</button><button class="btn secondary" id="clearMerchant">አዲስ መዝገብ</button></div>
+<hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+<div class="searchrow no-print"><input id="merchantSearch" placeholder="ነጋዴ ፈልግ፦ ስም / TIN / ፈቃድ ቁጥር"><button class="btn secondary" id="clearSearch">ፍለጋ አጽዳ</button></div>
+<div class="tablewrap"><table><thead><tr><th>ተ.ቁ.</th><th>ስም</th><th>TIN</th><th>ዘርፍ</th><th>አድራሻ</th><th>ፈቃድ ሁኔታ</th><th class="no-print">ተግባር</th></tr></thead><tbody id="merchantRows"></tbody></table></div>
+</section>
+
+<section id="inspection" class="panel">
+<h2>የነጋዴ ቁጥጥር መመዝገቢያ</h2>
+<p class="sectionnote">በየሩብ ዓመቱ ቁጥጥር ይመዝግቡ። አንድ ነጋዴ በአመት እስከ 4 ጊዜ ሊመረመር ይችላል፤ የቀድሞ ታሪክ አይሰረዝም።</p>
+<div class="grid">
+<div class="field"><label for="iMerchant">ነጋዴ *</label><select id="iMerchant"><option value="">ነጋዴ ይምረጡ</option></select></div>
+<div class="field"><label for="iDate">የቁጥጥር ቀን *</label><input id="iDate" type="date"></div>
+<div class="field"><label for="iYear">የሥራ ዓመት</label><input id="iYear" value="2019" readonly></div>
+<div class="field"><label for="iQuarter">ሩብ ዓመት</label><select id="iQuarter"><option>1ኛ ሩብ ዓመት</option><option>2ኛ ሩብ ዓመት</option><option>3ኛ ሩብ ዓመት</option><option>4ኛ ሩብ ዓመት</option></select></div>
+<div class="field"><label for="iInspector">የተቆጣጣሪ ስም</label><input id="iInspector" placeholder="የተቆጣጣሪ ስም"></div>
+<div class="field"><label for="iEquipment">የመለኪያ መሣሪያ ማረጋገጫ</label><select id="iEquipment"><option value="ተረጋግጧል">ተረጋግጧል</option><option value="አልተረጋገጠም">አልተረጋገጠም</option><option value="የለውም">የመለኪያ መሣሪያ የለውም</option><option value="አይመለከትም">አይመለከትም</option></select></div>
+</div>
+<h3 style="font-size:15px;color:var(--green);margin:18px 0 8px">የቁጥጥር 6 መስፈርቶች</h3>
+<div class="criteria" id="criteriaList"></div>
+<div class="grid" style="margin-top:12px">
+<div class="field"><label for="iResult">የቁጥጥር ውጤት</label><select id="iResult"><option value="ተሟልቷል">ተሟልቷል</option><option value="አልተሟላም">አልተሟላም</option><option value="በከፊል">በከፊል</option></select></div>
+<div class="field"><label for="iFollowup">የሚወሰድ እርምጃ</label><input id="iFollowup" placeholder="ማስጠንቀቂያ / የማሻሻያ ጊዜ ..."></div>
+<div class="field full"><label for="iNotes">የቁጥጥር ማስታወሻ</label><textarea id="iNotes" placeholder="የተገኘ ችግር እና ተጨማሪ ማስታወሻ"></textarea></div>
+</div>
+<div class="buttons no-print"><button class="btn" id="saveInspection">የቁጥጥር ውጤት አስቀምጥ</button><button class="btn secondary" id="clearInspection">ቅጹን አጽዳ</button></div>
+<h3 style="font-size:15px;color:var(--green);margin-top:22px">የቁጥጥር ታሪክ</h3>
+<div class="tablewrap"><table><thead><tr><th>ቀን</th><th>ነጋዴ</th><th>ሩብ ዓመት</th><th>ውጤት</th><th>መለኪያ</th><th class="no-print">ተግባር</th></tr></thead><tbody id="inspectionRows"></tbody></table></div>
+</section>
+
+<section id="illegal" class="panel">
+<h2>ሕገወጥ ንግድ መመዝገቢያ</h2>
+<p class="sectionnote">የሕገወጥ ንግድ መረጃ ለቁጥጥርና ሪፖርት ይመዝግቡ።</p>
+<div class="grid">
+<div class="field"><label for="lName">የነጋዴ / የንግድ ቦታ ስም *</label><input id="lName"></div>
+<div class="field"><label for="lDate">የተገኘበት ቀን *</label><input id="lDate" type="date"></div>
+<div class="field"><label for="lAddress">አድራሻ</label><input id="lAddress"></div>
+<div class="field"><label for="lType">የጥሰት ዓይነት</label><select id="lType"><option>ያለ ፈቃድ ንግድ</option><option>ያልታደሰ ፈቃድ</option><option>የተጋነነ ዋጋ</option><option>የጥራት ደረጃ ያልጠበቀ ምርት</option><option>የመለኪያ መሣሪያ ጥሰት</option><option>ሌላ</option></select></div>
+<div class="field full"><label for="lAction">የተወሰደ እርምጃ / ማስታወሻ</label><textarea id="lAction"></textarea></div>
+</div>
+<div class="buttons no-print"><button class="btn" id="saveIllegal">ሕገወጥ ንግድ አስቀምጥ</button></div>
+<div class="tablewrap" style="margin-top:15px"><table><thead><tr><th>ቀን</th><th>ስም</th><th>አድራሻ</th><th>ጥሰት</th><th>እርምጃ</th><th class="no-print">ተግባር</th></tr></thead><tbody id="illegalRows"></tbody></table></div>
+</section>
+
+<section id="reports" class="panel">
+<h2>የሥራ ሪፖርት</h2>
+<p class="sectionnote">የሪፖርት ቁጥሮች በዚህ አፕ ውስጥ ከተመዘገቡ መረጃዎች ብቻ ይሰላሉ።</p>
+<div class="grid no-print">
+<div class="field"><label for="rYear">ዓመት</label><select id="rYear"><option>ሁሉም ዓመታት</option><option>2019</option><option>2020</option><option>2021</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option></select></div>
+<div class="field"><label for="rQuarter">ሩብ ዓመት</label><select id="rQuarter"><option>ሁሉም ሩብ ዓመታት</option><option>1ኛ ሩብ ዓመት</option><option>2ኛ ሩብ ዓመት</option><option>3ኛ ሩብ ዓመት</option><option>4ኛ ሩብ ዓመት</option></select></div>
+</div>
+<div class="buttons no-print"><button class="btn" id="makeReport">ሪፖርት አዘጋጅ</button><button class="btn secondary" id="printReport">ሪፖርት አትም / PDF</button><button class="btn secondary" id="exportReport">CSV ሪፖርት አውርድ</button></div>
+<div id="reportOutput" style="margin-top:15px"></div>
+</section>
+
+<section id="backup" class="panel">
+<h2>መረጃ ማስቀመጥና ማስተላለፍ</h2>
+<p>መረጃዎ በዚህ መሣሪያ ላይ ይቀመጣል። አሳሹን ወይም የአሳሽ መረጃን ከማጥፋት በፊት ሙሉ ምትኬ ያውርዱ። ምትኬ የሚያወርዱት ሲፈልጉ ብቻ ነው፤ በየቀኑ ብዙ ፋይሎች በራስ-ሰር አይፈጠሩም።</p>
+<div class="buttons no-print"><button class="btn" id="backupJson">ሙሉ ምትኬ (JSON) አውርድ</button><label class="btn secondary" for="restoreFile" style="cursor:pointer">ምትኬ መልስ / አስገባ</label><input id="restoreFile" type="file" accept=".json,application/json" class="hidden"><button class="btn secondary" id="exportMerchants">የነጋዴ ዝርዝር CSV</button></div>
+<div class="notice" style="margin-top:15px"><b>የኦንላይን ማረጋገጫ፦</b> የፈቃድ ታደሰ/ያልታደሰ ሁኔታ እዚህ በእጅ ይመዘገባል። ከመንግሥት የፈቃድ ሥርዓት ጋር የቀጥታ ግንኙነት አልተደረገም፤ ኦፊሴላዊ ምንጭ/API ሳይኖር የኦንላይን ማረጋገጫ እንዳለ አያሳይም።</div>
+<div class="buttons no-print"><button class="btn danger" id="deleteAll">በዚህ መሣሪያ ያለውን መረጃ ሁሉ አጥፋ</button></div>
+</section>
+<div class="footer">Gazo Merchant Inspection • የመረጃ ባለቤትነትና የማስቀመጥ ኃላፊነት በተጠቃሚው ላይ ነው።</div>
+</main>
+<script>
+const KEY='gazoMerchantInspection_v1';
+const criteriaDefaults=[
+'የንግድ ፈቃድ አለው እና በተመዘገበበት አድራሻ ይሰራል',
+'የጥራት ደረጃ ያልጠበቁ ምርቶችን አያመርትም / አያቀርብም',
+'የተረጋገጠ የመለኪያ መሣሪያ ይጠቀማል',
+'በተገለጸው / በተለጠፈው ዋጋ ይሸጣል',
+'መስፈርት 5 (ከአካባቢው የቁጥጥር መመሪያ ጋር ያስተካክሉ)',
+'መስፈርት 6 (ከአካባቢው የቁጥጥር መመሪያ ጋር ያስተካክሉ)'
+];
+let db={merchants:[],inspections:[],illegal:[]};
+try{const saved=localStorage.getItem(KEY);if(saved)db=Object.assign(db,JSON.parse(saved));}catch(e){}
+const $=id=>document.getElementById(id);
+function saveDB(){try{localStorage.setItem(KEY,JSON.stringify(db));renderAll();return true}catch(e){alert('መረጃውን ማስቀመጥ አልተቻለም። የመሣሪያው ማከማቻ ቦታ ሙሉ ሊሆን ይችላል።');return false}}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function today(){return new Date().toISOString().slice(0,10)}
+function quarterFor(date){let m=Number((date||today()).slice(5,7));return m<=3?'1ኛ ሩብ ዓመት':m<=6?'2ኛ ሩብ ዓመት':m<=9?'3ኛ ሩብ ዓመት':'4ኛ ሩብ ዓመት'}
+function yearFor(date){return date?String(Number(date.slice(0,4))-2007+2019):'2019'}
+function nameOf(mid){return db.merchants.find(m=>m.id===mid)?.name||'የተሰረዘ መዝገብ'}
+function renderCriteria(){ $('criteriaList').innerHTML=criteriaDefaults.map((c,i)=>`<div class="criterion"><div class="label">${i+1}. ${esc(c)}</div><div class="radios"><label><input type="radio" name="c${i}" value="ተሟልቷል" ${i===0?'checked':''}> ተሟልቷል</label><label><input type="radio" name="c${i}" value="አልተሟላም"> አልተሟላም</label><label><input type="radio" name="c${i}" value="አልተመረመረም" ${i>0?'checked':''}> አልተመረመረም</label></div></div>`).join('')}
+function renderAll(){renderMerchants();renderInspections();renderIllegal();renderStats();renderMerchantSelect()}
+function renderStats(){$('countMerchants').textContent=db.merchants.length;$('countInspections').textContent=db.inspections.length;$('countRenewed').textContent=db.merchants.filter(m=>m.renewal==='የታደሰ').length;$('countIllegal').textContent=db.illegal.length}
+function renderMerchants(){let q=$('merchantSearch').value.trim().toLowerCase();let list=db.merchants.filter(m=>[m.name,m.tin,m.license,m.sector,m.address].some(v=>String(v||'').toLowerCase().includes(q)));$('merchantRows').innerHTML=list.length?list.map((m,i)=>`<tr><td>${i+1}</td><td>${esc(m.name)}</td><td>${esc(m.tin||'—')}</td><td>${esc(m.sector||'—')}</td><td>${esc(m.address||'—')}</td><td><span class="badge ${m.renewal==='ያልታደሰ'?'warn':''}">${esc(m.renewal)}</span></td><td class="no-print"><button class="btn secondary" onclick="editMerchant('${m.id}')">አስተካክል</button> <button class="btn secondary" onclick="startInspection('${m.id}')">ቁጥጥር</button> <button class="btn danger" onclick="deleteMerchant('${m.id}')">ሰርዝ</button></td></tr>`).join(''):'<tr><td colspan="7" class="empty">የተመዘገበ ነጋዴ የለም። ከላይ አዲስ ይመዝግቡ።</td></tr>'}
+function renderMerchantSelect(){let old=$('iMerchant').value;$('iMerchant').innerHTML='<option value="">ነጋዴ ይምረጡ</option>'+db.merchants.slice().sort((a,b)=>a.name.localeCompare(b.name,'am')).map(m=>`<option value="${m.id}">${esc(m.name)}${m.tin?' — TIN '+esc(m.tin):''}</option>`).join('');if(db.merchants.some(m=>m.id===old))$('iMerchant').value=old}
+function renderInspections(){let list=db.inspections.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));$('inspectionRows').innerHTML=list.length?list.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(nameOf(x.merchantId))}</td><td>${esc(x.quarter)}</td><td><span class="badge ${x.result==='አልተሟላም'?'red':x.result==='በከፊል'?'warn':''}">${esc(x.result)}</span></td><td>${esc(x.equipment)}</td><td class="no-print"><button class="btn danger" onclick="deleteInspection('${x.id}')">ሰርዝ</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">ገና ቁጥጥር አልተመዘገበም።</td></tr>'}
+function renderIllegal(){$('illegalRows').innerHTML=db.illegal.length?db.illegal.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.name)}</td><td>${esc(x.address||'—')}</td><td>${esc(x.type)}</td><td>${esc(x.action||'—')}</td><td class="no-print"><button class="btn danger" onclick="deleteIllegal('${x.id}')">ሰርዝ</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">ሕገወጥ ንግድ አልተመዘገበም።</td></tr>'}
+function clearMerchant(){['merchantId','mName','mTin','mLicense','mSector','mAddress','mPhone','mCapital','mIssueDate','mNotes'].forEach(x=>$(x).value='');$('mRenewal').value='ያልታደሰ';$('mLegal').value='ሕጋዊ';$('mName').focus()}
+$('saveMerchant').onclick=()=>{let name=$('mName').value.trim();if(!name){alert('የነጋዴውን ስም ያስገቡ።');return}let old=db.merchants.find(m=>m.id===$('merchantId').value);let m={id:old?.id||id(),name,tin:$('mTin').value.trim(),license:$('mLicense').value.trim(),sector:$('mSector').value.trim(),address:$('mAddress').value.trim(),phone:$('mPhone').value.trim(),capital:$('mCapital').value.trim(),issueDate:$('mIssueDate').value,renewal:$('mRenewal').value,legal:$('mLegal').value,notes:$('mNotes').value.trim(),updatedAt:new Date().toISOString()};if(old)db.merchants=db.merchants.map(v=>v.id===old.id?m:v);else db.merchants.push(m);if(saveDB()){clearMerchant();alert('የነጋዴ መረጃ ተቀምጧል።')}}
+$('clearMerchant').onclick=clearMerchant;
+window.editMerchant=(mid)=>{let m=db.merchants.find(x=>x.id===mid);if(!m)return;let map={merchantId:'id',mName:'name',mTin:'tin',mLicense:'license',mSector:'sector',mAddress:'address',mPhone:'phone',mCapital:'capital',mIssueDate:'issueDate',mRenewal:'renewal',mLegal:'legal',mNotes:'notes'};Object.entries(map).forEach(([field,key])=>$(field).value=m[key]||'');$('mName').focus();document.querySelector('[data-tab="merchants"]').click();window.scrollTo({top:0,behavior:'smooth'})}
+window.deleteMerchant=(mid)=>{if(!confirm('ይህን የነጋዴ መዝገብ ይሰርዙ? የቁጥጥር ታሪኩ ሊቆይ ይችላል።'))return;db.merchants=db.merchants.filter(m=>m.id!==mid);saveDB()}
+window.startInspection=(mid)=>{document.querySelector('[data-tab="inspection"]').click();$('iMerchant').value=mid;$('iDate').value=today();$('iQuarter').value=quarterFor(today());$('iYear').value=yearFor(today());window.scrollTo({top:0,behavior:'smooth'})}
+$('merchantSearch').oninput=renderMerchants;$('clearSearch').onclick=()=>{$('merchantSearch').value='';renderMerchants()}
+$('iDate').value=today();$('iDate').onchange=()=>{$('iQuarter').value=quarterFor($('iDate').value);$('iYear').value=yearFor($('iDate').value)}
+$('saveInspection').onclick=()=>{let mid=$('iMerchant').value,date=$('iDate').value;if(!mid||!date){alert('ነጋዴና የቁጥጥር ቀን ይምረጡ።');return}let checks=criteriaDefaults.map((_,i)=>document.querySelector(`input[name="c${i}"]:checked`)?.value||'አልተመረመረም');let x={id:id(),merchantId:mid,date,year:$('iYear').value,quarter:$('iQuarter').value,inspector:$('iInspector').value.trim(),equipment:$('iEquipment').value,result:$('iResult').value,followup:$('iFollowup').value.trim(),notes:$('iNotes').value.trim(),checks};db.inspections.push(x);if(saveDB()){alert('የቁጥጥር ውጤት ተቀምጧል።');clearInspection()}}
+function clearInspection(){ $('iDate').value=today();$('iQuarter').value=quarterFor(today());$('iYear').value=yearFor(today());$('iMerchant').value='';$('iInspector').value='';$('iEquipment').value='ተረጋግጧል';$('iResult').value='ተሟልቷል';$('iFollowup').value='';$('iNotes').value='';renderCriteria()}
+$('clearInspection').onclick=clearInspection;
+window.deleteInspection=(iid)=>{if(confirm('ይህን የቁጥጥር መዝገብ ይሰርዙ?')){db.inspections=db.inspections.filter(x=>x.id!==iid);saveDB()}}
+$('saveIllegal').onclick=()=>{let name=$('lName').value.trim(),date=$('lDate').value;if(!name||!date){alert('ስምና ቀን ያስገቡ።');return}db.illegal.push({id:id(),name,date,address:$('lAddress').value.trim(),type:$('lType').value,action:$('lAction').value.trim()});if(saveDB()){['lName','lDate','lAddress','lAction'].forEach(x=>$(x).value='');alert('መረጃው ተቀምጧል።')}}
+window.deleteIllegal=(iid)=>{if(confirm('ይህን መዝገብ ይሰርዙ?')){db.illegal=db.illegal.filter(x=>x.id!==iid);saveDB()}}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));if(b.dataset.tab==='reports')makeReport()})
+function filteredInspections(){let y=$('rYear').value,q=$('rQuarter').value;return db.inspections.filter(x=>(y==='ሁሉም ዓመታት'||x.year===y)&&(q==='ሁሉም ሩብ ዓመታት'||x.quarter===q))}
+function makeReport(){let ins=filteredInspections(),good=ins.filter(x=>x.result==='ተሟልቷል').length,bad=ins.filter(x=>x.result==='አልተሟላም').length,part=ins.filter(x=>x.result==='በከፊል').length;let lines=`<h3>የቁጥጥር ሪፖርት</h3><p>የተመረጠ ዓመት፦ ${esc($('rYear').value)} | ሩብ ዓመት፦ ${esc($('rQuarter').value)}</p><div class="stats"><div class="stat"><b>${db.merchants.length}</b><span>ጠቅላላ ነጋዴዎች</span></div><div class="stat"><b>${ins.length}</b><span>የቁጥጥር ብዛት</span></div><div class="stat"><b>${good}</b><span>የተሟሉ</span></div><div class="stat"><b>${bad}</b><span>ያልተሟሉ</span></div></div><p>በከፊል የተፈጸሙ ቁጥጥሮች፦ <b>${part}</b> | ሕገወጥ ንግድ መዝገቦች፦ <b>${db.illegal.length}</b></p><div class="tablewrap"><table><thead><tr><th>ቀን</th><th>ነጋዴ</th><th>ሩብ ዓመት</th><th>ውጤት</th><th>መለኪያ</th><th>ተቆጣጣሪ</th></tr></thead><tbody>${ins.length?ins.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(nameOf(x.merchantId))}</td><td>${esc(x.quarter)}</td><td>${esc(x.result)}</td><td>${esc(x.equipment)}</td><td>${esc(x.inspector||'—')}</td></tr>`).join(''):'<tr><td colspan="6" class="empty">በዚህ ምርጫ የቁጥጥር መረጃ የለም።</td></tr>'}</tbody></table></div>`;$('reportOutput').innerHTML=lines}
+$('makeReport').onclick=makeReport;$('rYear').onchange=makeReport;$('rQuarter').onchange=makeReport;$('printReport').onclick=()=>{makeReport();window.print()}
+function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function csv(rows){return '\ufeff'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n')}
+$('backupJson').onclick=()=>download('Gazo_Merchant_Inspection_Backup_'+today()+'.json',JSON.stringify(db,null,2),'application/json;charset=utf-8');
+$('exportMerchants').onclick=()=>download('Gazo_Merchant_List_'+today()+'.csv',csv([['ተ.ቁ','ስም','TIN','የፈቃድ ቁጥር','ዘርፍ','አድራሻ','ስልክ','ካፒታል','የፈቃድ ቀን','የፈቃድ ሁኔታ','ሕጋዊነት'],...db.merchants.map((m,i)=>[i+1,m.name,m.tin,m.license,m.sector,m.address,m.phone,m.capital,m.issueDate,m.renewal,m.legal])]),'text/csv;charset=utf-8');
+$('exportReport').onclick=()=>{let ins=filteredInspections();download('Gazo_Inspection_Report_'+today()+'.csv',csv([['ቀን','የነጋዴ ስም','TIN','ሩብ ዓመት','ውጤት','የመለኪያ መሣሪያ','ተቆጣጣሪ','ማስታወሻ'],...ins.map(x=>{let m=db.merchants.find(v=>v.id===x.merchantId)||{};return [x.date,m.name,m.tin,x.quarter,x.result,x.equipment,x.inspector,x.notes]})]),'text/csv;charset=utf-8')}
+$('restoreFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let imported=JSON.parse(await f.text());if(!Array.isArray(imported.merchants)||!Array.isArray(imported.inspections)||!Array.isArray(imported.illegal))throw new Error('bad');if(!confirm('የአሁኑን መረጃ በዚህ ምትኬ መተካት ይፈልጋሉ?'))return;db=imported;saveDB();alert('ምትኬው ተመልሷል።')}catch(err){alert('ይህ ትክክለኛ የGazo ምትኬ ፋይል አይደለም።')}e.target.value=''}
+$('deleteAll').onclick=()=>{if(confirm('በዚህ መሣሪያ ውስጥ ያሉ የነጋዴ፣ ቁጥጥር እና ሕገወጥ ንግድ መዝገቦች ሁሉ ይጠፋሉ። ቀጥለው ይፈልጋሉ?')&&confirm('ይህ እርምጃ መመለስ አይቻልም። እርግጠኛ ነዎት?')){db={merchants:[],inspections:[],illegal:[]};saveDB();clearMerchant();clearInspection();alert('የዚህ መሣሪያ መረጃ ተጥፏል።')}}
+renderCriteria();renderAll();makeReport();
+</script>
+</body>
+</html>
